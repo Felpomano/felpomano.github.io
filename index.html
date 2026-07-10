@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seu Nome — QA Tester & Security Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D0F14;
+    --surface: #1A1D27;
+    --surface2: #21253A;
+    --green: #00FF87;
+    --purple: #7B2FFF;
+    --text: #C8D0E7;
+    --text-muted: #6B7490;
+    --border: rgba(123,47,255,0.25);
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(13,15,20,0.92);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    color: var(--green);
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+  .nav-logo span { color: var(--purple); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 3rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--green);
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--green);
+    display: inline-block;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+  }
+  h1 .accent { color: var(--green); }
+  h1 .accent2 { color: var(--purple); }
+
+  .terminal-line {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 1.5rem 0 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .terminal-line .prompt { color: var(--green); }
+  .cursor {
+    display: inline-block;
+    width: 9px;
+    height: 1.1em;
+    background: var(--green);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+  .badge-green { background: rgba(0,255,135,0.1); color: var(--green); border: 1px solid rgba(0,255,135,0.3); }
+  .badge-purple { background: rgba(123,47,255,0.1); color: #A87FFF; border: 1px solid rgba(123,47,255,0.3); }
+  .badge-blue { background: rgba(56,139,253,0.1); color: #7BB8FF; border: 1px solid rgba(56,139,253,0.25); }
+
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #0D0F14;
+    font-weight: 600;
+  }
+  .btn-primary:hover { background: #00cc6e; }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--purple); color: #A87FFF; }
+
+  /* SECTION */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .skill-card:hover { border-color: var(--purple); }
+  .skill-card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .skill-card h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+  .skill-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(123,47,255,0.1);
+    color: #A87FFF;
+    border-radius: 3px;
+  }
+  .skill-tag.green-tag {
+    background: rgba(0,255,135,0.08);
+    color: var(--green);
+  }
+  .skill-tag.blue-tag {
+    background: rgba(56,139,253,0.08);
+    color: #7BB8FF;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .project-card:hover {
+    border-color: var(--green);
+    transform: translateY(-2px);
+  }
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .project-icon { font-size: 1.3rem; }
+  .project-link-icon {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+  .project-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    section { padding: 3rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+  }
+  .about-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; }
+  .about-text p { margin-bottom: 1rem; }
+  .about-text strong { color: var(--text); }
+
+  .timeline { display: flex; flex-direction: column; gap: 1.4rem; }
+  .timeline-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-top: 5px;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0,255,135,0.4);
+  }
+  .timeline-dot.purple {
+    background: var(--purple);
+    box-shadow: 0 0 8px rgba(123,47,255,0.4);
+  }
+  .timeline-dot.blue {
+    background: #7BB8FF;
+    box-shadow: 0 0 8px rgba(123,184,255,0.4);
+  }
+  .timeline-year {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--green);
+    letter-spacing: 1px;
+  }
+  .timeline-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .timeline-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* CONTACT */
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .contact-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+  }
+  .contact-sub { color: var(--text-muted); max-width: 440px; }
+  .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+  footer span { color: var(--green); }
+</style>
+</head>
+<body>
+
+<nav>
+  <!-- PERSONALIZE: troque SEU_NOME pelo seu nome ou apelido -->
+  <div class="nav-logo">&lt;<span>/</span>SEU_NOME&gt;</div>
+  <ul class="nav-links">
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projetos</a></li>
+    <li><a href="#about">sobre</a></li>
+    <li><a href="#contact">contato</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="hero">
+    <!-- PERSONALIZE: status de disponibilidade -->
+    <div class="hero-label">disponível para oportunidades</div>
+
+    <h1>
+      QA Tester.<br>
+      <span class="accent">Game Dev.</span><br>
+      <span class="accent2">Sec Researcher.</span>
+    </h1>
+
+    <!-- Terminal animado — os comandos ficam no script no final -->
+    <div class="terminal-line">
+      <span class="prompt">~$</span>
+      <span id="typed-cmd"></span>
+      <span class="cursor"></span>
+    </div>
+
+    <!-- PERSONALIZE: sua apresentação em 2-3 linhas -->
+    <p class="hero-desc">
+      Formado em Jogos Digitais, QA Tester com foco em qualidade e automação de testes,
+      e estudante de Segurança da Informação — unindo criatividade, precisão e mentalidade ofensiva.
+    </p>
+
+    <div class="hero-badges">
+      <span class="badge badge-green">QA Testing</span>
+      <span class="badge badge-green">Test Automation</span>
+      <span class="badge badge-purple">Game Dev</span>
+      <span class="badge badge-purple">Unity / Unreal</span>
+      <span class="badge badge-blue">Cybersecurity</span>
+      <span class="badge badge-blue">Pentesting</span>
+    </div>
+
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">ver projetos →</a>
+      <a href="#contact" class="btn btn-outline">entrar em contato</a>
+    </div>
+  </div>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-num">01 // SKILLS</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <span class="skill-card-icon">🧪</span>
+        <h3>QA & Testes</h3>
+        <p>Testes funcionais, regressão, exploratórios e automação de pipelines de qualidade.</p>
+        <!-- PERSONALIZE: suas ferramentas de QA reais -->
+        <div class="skill-tags">
+          <span class="skill-tag green-tag">Selenium</span>
+          <span class="skill-tag green-tag">Cypress</span>
+          <span class="skill-tag green-tag">Postman</span>
+          <span class="skill-tag green-tag">JIRA</span>
+          <span class="skill-tag green-tag">TestRail</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-card-icon">🎮</span>
+        <h3>Game Development</h3>
+        <p>Desenvolvimento de mecânicas, level design, scripting e QA em jogos digitais.</p>
+        <!-- PERSONALIZE: engines e ferramentas que você domina -->
+        <div class="skill-tags">
+          <span class="skill-tag">Unity</span>
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">Unreal</span>
+          <span class="skill-tag">Blender</span>
+          <span class="skill-tag">Game QA</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-card-icon">🔐</span>
+        <h3>Segurança da Informação</h3>
+        <p>Estudos em pentest, análise de vulnerabilidades e fundamentos de redes.</p>
+        <!-- PERSONALIZE: ferramentas de sec que você estuda/usa -->
+        <div class="skill-tags">
+          <span class="skill-tag blue-tag">Kali Linux</span>
+          <span class="skill-tag blue-tag">Nmap</span>
+          <span class="skill-tag blue-tag">Burp Suite</span>
+          <span class="skill-tag blue-tag">OWASP</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <span class="skill-card-icon">⚙️</span>
+        <h3>Dev & Ferramentas</h3>
+        <p>Stack de desenvolvimento e ferramentas de suporte a testes e automação.</p>
+        <!-- PERSONALIZE: linguagens e ferramentas que você usa -->
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-num">02 // PROJETOS</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <!-- PERSONALIZE: substitua cada card por um projeto real do seu GitHub -->
+      <!-- href: link direto para o repositório -->
+
+      <a class="project-card" href="https://github.com/SEU_USUARIO/REPOSITORIO_1" target="_blank" rel="noopener">
+        <div class="project-top">
+          <span class="project-icon">🧪</span>
+          <span class="project-link-icon">↗</span>
+        </div>
+        <h3>Automation QA Suite</h3>
+        <p class="project-desc">Framework de testes automatizados E2E com relatórios detalhados, CI/CD integration e cobertura de regressão.</p>
+        <div class="project-stack">
+          <span class="skill-tag green-tag">Cypress</span>
+          <span class="skill-tag green-tag">GitHub Actions</span>
+          <span class="skill-tag green-tag">Node.js</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/SEU_USUARIO/REPOSITORIO_2" target="_blank" rel="noopener">
+        <div class="project-top">
+          <span class="project-icon">🎮</span>
+          <span class="project-link-icon">↗</span>
+        </div>
+        <h3>Jogo 2D — TCC</h3>
+        <p class="project-desc">Jogo de plataforma desenvolvido como trabalho de conclusão de curso. Mecânicas, áudio, arte e level design próprios.</p>
+        <div class="project-stack">
+          <span class="skill-tag">Unity</span>
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">Aseprite</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/SEU_USUARIO/REPOSITORIO_3" target="_blank" rel="noopener">
+        <div class="project-top">
+          <span class="project-icon">🔍</span>
+          <span class="project-link-icon">↗</span>
+        </div>
+        <h3>Web Vuln Scanner</h3>
+        <p class="project-desc">Script Python para detecção de vulnerabilidades básicas em aplicações web: XSS, injeção SQL e headers ausentes.</p>
+        <div class="project-stack">
+          <span class="skill-tag blue-tag">Python</span>
+          <span class="skill-tag blue-tag">OWASP</span>
+          <span class="skill-tag blue-tag">Requests</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/SEU_USUARIO/REPOSITORIO_4" target="_blank" rel="noopener">
+        <div class="project-top">
+          <span class="project-icon">📋</span>
+          <span class="project-link-icon">↗</span>
+        </div>
+        <h3>Bug Report Templates</h3>
+        <p class="project-desc">Templates profissionais de bug reports, checklists de testes e documentação de QA para equipes ágeis.</p>
+        <div class="project-stack">
+          <span class="skill-tag green-tag">Markdown</span>
+          <span class="skill-tag green-tag">JIRA</span>
+          <span class="skill-tag green-tag">Notion</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-num">03 // SOBRE</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+
+      <!-- PERSONALIZE: reescreva com sua história real -->
+      <div class="about-text">
+        <p>Sou um profissional multidisciplinar na interseção entre <strong>qualidade de software</strong>, <strong>desenvolvimento de jogos</strong> e <strong>segurança da informação</strong>.</p>
+        <p>Minha formação em Jogos Digitais me deu uma visão única sobre como sistemas complexos falham — o que me tornou um QA tester mais eficiente e criativo na identificação de bugs.</p>
+        <p>Atualmente aprofundando conhecimentos em <strong>segurança ofensiva</strong>, pentesting e análise de vulnerabilidades, buscando unir todas essas áreas em soluções robustas e seguras.</p>
+      </div>
+
+      <!-- PERSONALIZE: seus anos e experiências reais -->
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2024 → atual</div>
+            <div class="timeline-title">Estudante — Segurança da Informação</div>
+            <div class="timeline-sub">Focado em pentest, redes e criptografia</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2022 → atual</div>
+            <div class="timeline-title">QA Tester</div>
+            <div class="timeline-sub">Testes manuais, automatizados e exploratórios</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot purple"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2019 → 2023</div>
+            <div class="timeline-title">Bacharelado — Jogos Digitais</div>
+            <div class="timeline-sub">Desenvolvimento, design e QA de games</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact">
+    <div class="contact-content">
+      <div class="section-num">04 // CONTATO</div>
+      <h2 class="contact-title">Vamos trabalhar juntos?</h2>
+      <p class="contact-sub">Aberto a oportunidades em QA, Game Testing, Segurança da Informação ou projetos freelance.</p>
+      <div class="contact-links">
+        <!-- PERSONALIZE: seus links reais -->
+        <a href="https://github.com/SEU_USUARIO" class="btn btn-primary" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://linkedin.com/in/SEU_PERFIL" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:seuemail@email.com" class="btn btn-outline">Email ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  feito com <span>♥</span> &amp; muito café — <span>© 2025</span> SEU_NOME
+</footer>
+
+<script>
+  // PERSONALIZE: edite os comandos do terminal animado
+  const lines = [
+    'whoami --skills',
+    'cat qa_experience.txt',
+    'nmap --open portfolio.dev',
+    'unity --run game.exe',
+    'python exploit.py --safe',
+  ];
+
+  let lineIdx = 0, charIdx = 0, deleting = false, paused = false;
+  const el = document.getElementById('typed-cmd');
+
+  function type() {
+    const line = lines[lineIdx];
+
+    if (!deleting) {
+      charIdx++;
+      el.textContent = line.slice(0, charIdx);
+      if (charIdx === line.length) {
+        deleting = true;
+        setTimeout(type, 1800);
+        return;
+      }
+      setTimeout(type, 65);
+    } else {
+      charIdx--;
+      el.textContent = line.slice(0, charIdx);
+      if (charIdx === 0) {
+        deleting = false;
+        lineIdx = (lineIdx + 1) % lines.length;
+        setTimeout(type, 400);
+        return;
+      }
+      setTimeout(type, 35);
+    }
+  }
+
+  type();
+</script>
+
+</body>
+</html>
